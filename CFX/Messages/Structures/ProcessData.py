@@ -1,0 +1,2 @@
+class ProcessData(object):
+    pass
