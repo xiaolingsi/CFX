@@ -26,8 +26,3 @@ class ValidateUnitsResponse(CFXMessage):
         self.PrimaryResult = validationResult
 
 
-if __name__ == '__main__':
-    request_result = RequestResult(StatusResult.Success, 0, "Success")
-    validationResult = ValidationResult()
-    validateUnitsResponse = ValidateUnitsResponse(request_result=request_result, validationResult = validationResult)
-    print(validateUnitsResponse.to_cfx_json())

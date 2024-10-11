@@ -28,7 +28,4 @@ class StationParametersModified(CFXMessage):
         self.ModifiedParameters.append(parameter)
 
 
-if __name__ == '__main__':
-    stationParametersModified = StationParametersModified()
-    stationParametersModified.add_modified_parameter(GenericParameter(name="test", value="testValue"))
-    print(stationParametersModified.to_cfx_json())
+

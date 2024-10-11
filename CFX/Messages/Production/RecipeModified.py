@@ -34,6 +34,3 @@ class RecipeModified(CFXMessage):
         self.WorkOrderIdentifier = workOrderIdentifier
 
 
-if __name__ == '__main__':
-    recipeModified = RecipeModified(recipe_name="recipe", revision="-1000")
-    print(recipeModified.to_cfx_json())

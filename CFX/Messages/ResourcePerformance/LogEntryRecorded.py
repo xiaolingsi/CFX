@@ -29,6 +29,3 @@ class LogEntryRecorded(CFXMessage):
         self.Message = message
 
 
-if __name__ == '__main__':
-    logEntryRecorded = LogEntryRecorded("information_id","hah")
-    print(logEntryRecorded.to_cfx_json())

@@ -29,6 +29,3 @@ class StationStateChanged(CFXMessage):
         self.RelatedFault = None
 
 
-if __name__ == '__main__':
-    stationStateChanged = StationStateChanged("00:05:00")
-    print(stationStateChanged.to_cfx_json())

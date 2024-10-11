@@ -25,6 +25,3 @@ class WorkStageResumed(CFXMessage):
         self.TransactionID = transctionID
 
 
-if __name__ == '__main__':
-    workStageResumed = WorkStageResumed(stage=Stage(stageName="StageNameBB",stageType=StageType.Work))
-    print(workStageResumed.to_cfx_json())

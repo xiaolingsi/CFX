@@ -31,11 +31,3 @@ class UnitsDeparted(CFXMessage):
         self.UnitCount += 1
 
 
-if __name__ == '__main__':
-    unitsDeparted = UnitsDeparted(
-        primaryIdentifier="ABC",
-        hermesIdentifier="ABCD",
-        Lane=1
-    )
-    unitsDeparted.add_units(UnitPosition("a", 2, "A", 1.1, 2.1, 0.5, True, False))
-    unitsDeparted.to_cfx_json()

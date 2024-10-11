@@ -38,7 +38,3 @@ class WorkCompleted(CFXMessage):
         self.UnitCount += 1
 
 
-if __name__ == '__main__':
-    workCompleted = WorkCompleted(Result=WorkResult.Failed,primaryIdentifier="AA",hermesIdentifier="BB")
-    workCompleted.add_unit(UnitPosition("a", 2, "A", 1.1, 2.1, 0.5, True, False))
-    print(workCompleted.to_cfx_json())

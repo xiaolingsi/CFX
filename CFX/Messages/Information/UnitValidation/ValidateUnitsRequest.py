@@ -30,8 +30,3 @@ class ValidateUnitsRequest(CFXMessage):
         self.Validations = []
 
 
-if __name__ == '__main__':
-    units = []
-    units.append(UnitPosition())
-    validateUnitsRequest = ValidateUnitsRequest(primaryIdentifier="aaa",units = units)
-    print(validateUnitsRequest.to_cfx_json())

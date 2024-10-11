@@ -21,8 +21,4 @@ class HandleFaultResponse(CFXMessage):
         self.Result = result
 
 
-if __name__ == '__main__':
-    request_result = RequestResult(StatusResult.Success, 0, "Success")
-    resp = HandleFaultResponse(result=request_result)
-    print(resp.to_cfx_json())
 

@@ -35,7 +35,3 @@ class WorkStarted(CFXMessage):
         self.UnitCount += 1
 
 
-if __name__ == '__main__':
-    workStarted = WorkStarted(primaryIdentifier="AAA",hermesIdentifier="BBB")
-    workStarted.add_unit(UnitPosition("a", 2, "A", 1.1, 2.1, 0.5, True, False))
-    print(workStarted.to_cfx_json())

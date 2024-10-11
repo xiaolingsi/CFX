@@ -23,7 +23,3 @@ class FaultCleared(CFXMessage):
         self.Operator = operator
 
 
-if __name__ == '__main__':
-    operator_ = Operator()
-    fault_cleared = FaultCleared(operator=operator_)
-    print(fault_cleared.to_cfx_json())

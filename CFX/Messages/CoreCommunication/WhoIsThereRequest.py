@@ -25,10 +25,3 @@ class WhoIsThereRequest(CFXMessage):
     def to_cfx_json(self):
         return self.to_json()
 
-
-if __name__ == '__main__':
-    whoisthere = WhoIsThereRequest()
-    supportTopic = SupportedTopic(topicName="AAA",topicSupportType=SupportedTopicQueryType.Ignore)
-    supportTopic.add_support_message("cvb")
-    whoisthere.add_supported_topic(supportTopic)
-    print(whoisthere.to_cfx_json())

@@ -25,8 +25,3 @@ class GetActiveRecipeResponse(CFXMessage):
         self.Result = result
 
 
-if __name__ == '__main__':
-    request_result = RequestResult(StatusResult.Success, 0, "Success")
-    resp = GetActiveRecipeResponse(result=request_result,active_recipe_name="aaaa",active_recipe_revision="212")
-    print(resp.to_cfx_json())
-

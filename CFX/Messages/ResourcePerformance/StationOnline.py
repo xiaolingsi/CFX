@@ -19,6 +19,3 @@ class StationOnline(CFXMessage):
         self.OfflineDuration = offline_duration
 
 
-if __name__ == '__main__':
-    station_online = StationOnline("00:05:00")
-    print(station_online.to_cfx_json())

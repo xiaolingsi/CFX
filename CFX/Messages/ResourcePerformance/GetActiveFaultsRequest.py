@@ -19,6 +19,4 @@ class GetActiveFaultsRequest(CFXMessage):
         self.message_name = "CFX.ResourcePerformance.GetActiveFaultsRequest"
 
 
-if __name__ == '__main__':
-    handleFaultRequest = GetActiveFaultsRequest()
-    print(handleFaultRequest.to_cfx_json())
+

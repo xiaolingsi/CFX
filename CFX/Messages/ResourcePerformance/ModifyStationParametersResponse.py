@@ -21,8 +21,5 @@ class ModifyStationParametersResponse(CFXMessage):
         self.Result = result
 
 
-if __name__ == '__main__':
-    request_result = RequestResult(StatusResult.Success, 0, "Success")
-    resp = ModifyStationParametersResponse(result=request_result)
-    print(resp.to_cfx_json())
+
 

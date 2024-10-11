@@ -25,7 +25,3 @@ class RecipeActivated(CFXMessage):
         self.Stage = stage
 
 
-if __name__ == '__main__':
-    stage = s(stageType=StageType.Buffer)
-    recipeActivated = RecipeActivated(stage=stage, recipe_name="recipe", revision="-1000")
-    print(recipeActivated.to_cfx_json())

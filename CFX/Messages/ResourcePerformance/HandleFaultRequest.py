@@ -23,6 +23,4 @@ class HandleFaultRequest(CFXMessage):
         self.HandleRemote = handle_remote
 
 
-if __name__ == '__main__':
-    handleFaultRequest = HandleFaultRequest(handle_remote=True,fault_occurrence_id = uuid.uuid4())
-    print(handleFaultRequest.to_cfx_json())
+

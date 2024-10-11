@@ -17,6 +17,3 @@ class StationOffline(CFXMessage):
         self.message_name = "CFX.ResourcePerformance.StationOffline"
 
 
-if __name__ == '__main__':
-    station_offline = StationOffline()
-    print(station_offline.to_cfx_json())

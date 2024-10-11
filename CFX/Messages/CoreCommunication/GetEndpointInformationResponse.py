@@ -26,12 +26,3 @@ class GetEndpointInformationResponse(CFXMessage):
     def to_cfx_json(self):
         return self.to_json()
 
-
-if __name__ == '__main__':
-    endpoint_information = Endpoint("aa","bb")
-    endpoint_information.add_stage(StageInformation(Stage()))
-    endpoint_information.add_stage(StageInformation(Stage()))
-    endpoint_information.add_support_topic(SupportedTopic())
-    request_result = RequestResult(StatusResult.Success, 0, "Success")
-    getEndpointInformationResponse = GetEndpointInformationResponse(endpoint_information,request_result)
-    print(getEndpointInformationResponse.to_cfx_json())

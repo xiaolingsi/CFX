@@ -22,8 +22,4 @@ class FaultAcknowledged(CFXMessage):
         self.Operator = operator
 
 
-if __name__ == '__main__':
-    operator = Operator()
-    faultAcknowledged = FaultAcknowledged(operator)
-    print(faultAcknowledged.to_cfx_json())
 

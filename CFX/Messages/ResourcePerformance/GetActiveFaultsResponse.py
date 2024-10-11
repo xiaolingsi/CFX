@@ -27,8 +27,3 @@ class GetActiveFaultsResponse(CFXMessage):
         self.ActiveFaults.append(fault)
 
 
-if __name__ == '__main__':
-    request_result = RequestResult(StatusResult.Success, 0, "Success")
-    resp = GetActiveFaultsResponse(result=request_result)
-    resp.add_fault(Fault(description="ERROR", fault_code="123"))
-    print(resp.to_cfx_json())

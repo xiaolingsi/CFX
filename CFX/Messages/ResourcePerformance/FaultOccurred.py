@@ -18,7 +18,4 @@ class FaultOccurred(CFXMessage):
         self.Fault = fault
 
 
-if __name__ == '__main__':
-    fault = Fault(description="ERROR",fault_code="123")
-    fault_occurred = FaultOccurred(fault)
-    print(fault_occurred.to_cfx_json())
+

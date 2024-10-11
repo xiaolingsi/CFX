@@ -28,6 +28,3 @@ class WorkStagePaused(CFXMessage):
         self.PauseReason = pauseReason
 
 
-if __name__ == '__main__':
-    workStagePaused = WorkStagePaused(stage=Stage(stageName="StageNameAA",stageType=StageType.Work),pauseReason=WorkStagePauseReason.Unknown)
-    print(workStagePaused.to_cfx_json())

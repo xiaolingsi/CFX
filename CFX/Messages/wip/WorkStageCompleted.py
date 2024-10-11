@@ -28,6 +28,3 @@ class WorkStageCompleted(CFXMessage):
         self.Result = result
 
 
-if __name__ == '__main__':
-    workStageCompleted = WorkStageCompleted(stage=Stage(stageName="StageName",stageType=StageType.Work),result=WorkResult.Skipped)
-    print(workStageCompleted.to_cfx_json())

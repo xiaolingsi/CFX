@@ -25,6 +25,3 @@ class WorkStageStarted(CFXMessage):
         self.TransactionID = transctionID
 
 
-if __name__ == '__main__':
-    workStageStarted = WorkStageStarted(stage=Stage(stageName="StageNameCC",stageType=StageType.Work))
-    print(workStageStarted.to_cfx_json())
