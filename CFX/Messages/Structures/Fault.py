@@ -6,7 +6,7 @@ from CFX.CFXUtils import CFXUtils
 from CFX.Messages.Structures.FaultCause import FaultCause
 from CFX.Messages.Structures.FaultSeverity import FaultSeverity
 from CFX.Messages.Structures.SideLocation import SideLocation
-from CFX.Messages.UnitPojo.Stage import Stage
+from CFX.Messages.Structures.Stage import Stage
 from CFX.Messages.Structures.AccessType import AccessType
 
 

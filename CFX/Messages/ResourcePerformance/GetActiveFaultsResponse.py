@@ -1,6 +1,5 @@
 from CFX.CFXMessage import CFXMessage
 from CFX.Messages.Structures.Fault import Fault
-from CFX.Messages.UnitPojo.Stage import Stage
 from dataclasses import dataclass
 from dataclasses_json import dataclass_json
 

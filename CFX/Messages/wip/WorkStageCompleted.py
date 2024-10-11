@@ -1,13 +1,12 @@
 import uuid
 
 from CFX.CFXMessage import CFXMessage
-from CFX.Messages.UnitPojo.UnitPosition import UnitPosition
 from dataclasses import dataclass
 from dataclasses_json import dataclass_json
 
 from CFX.Messages.genericUnits.StageType import StageType
 from CFX.Messages.genericUnits.WorkResult import WorkResult
-from CFX.Messages.UnitPojo.Stage import Stage
+from CFX.Messages.Structures.Stage import Stage
 
 
 @dataclass_json

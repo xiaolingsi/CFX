@@ -20,10 +20,11 @@ class CFXEndpoint(MessagingHandler, CFXMessageImplements, ABC):
         self.senders = {}
         self.acceptor = None
         self.rr_match = {}
+        self.log_utils = CFXUtils()
 
     def on_start(self, event):
         self.acceptor = event.container.listen(self.local_url)  # 接收publish消息
-        print("Listen start at " + self.local_url)
+        self.log_utils.info_log("Listen start at " + self.local_url)
 
     def on_link_opening(self, event):
         if event.link.is_sender:
@@ -99,4 +100,5 @@ class CFXEndpoint(MessagingHandler, CFXMessageImplements, ABC):
                                           'cfx-message': "CFX.NotSupportedResponse",
                                           'cfx-handle': self.cfx_handle,
                                           'cfx-target': source}, body=this)
+                self.log_utils.warning_log("NotSupportedResponse")
             sender.send(msg)

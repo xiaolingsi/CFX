@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from dataclasses_json import dataclass_json
-from CFX.Messages.UnitPojo.Stage import Stage as s
+from CFX.Messages.Structures.Stage import Stage as s
 
 from CFX.CFXMessage import CFXMessage
 from CFX.Messages.genericUnits.StageType import StageType

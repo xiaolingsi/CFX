@@ -3,10 +3,8 @@ from dataclasses_json import dataclass_json
 
 from CFX.Messages.Structures.Operator import Operator
 from CFX.Messages.Structures.RecipeModificationReason import RecipeModificationReason
-from CFX.Messages.UnitPojo.Stage import Stage as s
 from CFX.Messages.Structures.WorkOrderIdentifier import WorkOrderIdentifier
 from CFX.CFXMessage import CFXMessage
-from CFX.Messages.genericUnits.StageType import StageType
 
 
 @dataclass_json

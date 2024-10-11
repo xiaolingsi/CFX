@@ -1,5 +1,5 @@
 from CFX.CFXMessage import CFXMessage
-from CFX.Messages.UnitPojo.UnitPosition import UnitPosition
+from CFX.Messages.Structures.UnitPosition import UnitPosition
 from dataclasses import dataclass
 from dataclasses_json import dataclass_json
 

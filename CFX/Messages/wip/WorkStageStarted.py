@@ -5,7 +5,7 @@ from dataclasses import dataclass
 from dataclasses_json import dataclass_json
 
 from CFX.Messages.genericUnits.StageType import StageType
-from CFX.Messages.UnitPojo.Stage import Stage
+from CFX.Messages.Structures.Stage import Stage
 
 
 @dataclass_json

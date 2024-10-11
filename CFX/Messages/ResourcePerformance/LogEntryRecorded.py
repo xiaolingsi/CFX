@@ -3,7 +3,7 @@ from dataclasses_json import dataclass_json
 
 from CFX.CFXMessage import CFXMessage
 from CFX.Messages.Structures.LogImportance import LogImportance
-from CFX.Messages.UnitPojo.Stage import Stage
+from CFX.Messages.Structures.Stage import Stage
 
 @dataclass_json
 @dataclass

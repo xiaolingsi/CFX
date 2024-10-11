@@ -1,12 +1,10 @@
-from abc import ABC
-
 from CFX.CFXMessage import CFXMessage
 from dataclasses import dataclass
 from dataclasses_json import dataclass_json
 
 from CFX.Messages.Structures.Endpoint import Endpoint
 from CFX.Messages.Structures.StageInformation import StageInformation
-from CFX.Messages.UnitPojo.Stage import Stage
+from CFX.Messages.Structures.Stage import Stage
 from CFX.Messages.genericUnits.RequestResult import RequestResult
 from CFX.Messages.genericUnits.StatusResult import StatusResult
 from CFX.Messages.genericUnits.SupportedTopic import SupportedTopic

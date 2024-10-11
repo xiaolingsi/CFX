@@ -3,7 +3,6 @@ from dataclasses_json import dataclass_json
 
 from CFX.CFXMessage import CFXMessage
 from CFX.Messages.Structures.ValidationResult import ValidationResult
-from CFX.Messages.UnitPojo.UnitPosition import UnitPosition
 from CFX.Messages.genericUnits.RequestResult import RequestResult
 from CFX.Messages.genericUnits.StatusResult import StatusResult
 

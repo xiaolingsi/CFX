@@ -33,8 +33,8 @@ from CFX.Messages.Structures.GenericParameter import GenericParameter
 from CFX.Messages.Structures.Operator import Operator
 from CFX.Messages.Structures.ResourceState import ResourceState
 from CFX.Messages.Structures.StageInformation import StageInformation
-from CFX.Messages.UnitPojo.Stage import Stage
-from CFX.Messages.UnitPojo.UnitPosition import UnitPosition
+from CFX.Messages.Structures.Stage import Stage
+from CFX.Messages.Structures.UnitPosition import UnitPosition
 from CFX.Messages.genericUnits.RequestResult import RequestResult
 from CFX.Messages.genericUnits.StageType import StageType
 from CFX.Messages.genericUnits.StatusResult import StatusResult
@@ -56,21 +56,20 @@ class MyCFXEndpoint(CFXEndpoint):
 
     def __init__(self, local_url, cfx_handle):
         super(MyCFXEndpoint, self).__init__(local_url, cfx_handle)
+        self.log_utils.set_log_path("../CFX/Log")
 
     def on_message_receive_from_listener(self, msg) -> None:
-        print("on_message_receive_from_listener")
-        print(msg)
+        self.log_utils.info_log("Message receive from listener")
+        self.log_utils.info_log(msg)
 
     def on_request_receive(self, request) -> [dict, None, CFXMessage]:
-        print("on_request_receive")
-        print(request)
+        self.log_utils.info_log("Request receive")
+        self.log_utils.info_log(request)
         if request["MessageName"] == "CFX.AreYouThereRequest":
             resp_msg = CFXEnvelope(message_body=AreYouThereResponse(self.cfx_handle, self.local_url, self.cfx_handle))
-            print(resp_msg.to_json())
             return resp_msg.to_json()
         elif request["MessageName"] == "CFX.WhoIsThereRequest":
             resp_msg = CFXEnvelope(message_body=WhoIsThereResponse(self.cfx_handle, self.local_url, self.cfx_handle))
-            print(resp_msg.to_json())
             return resp_msg.to_json()
         elif request["MessageName"] == "CFX.GetEndpointInformationRequest":
             endpoint_information = Endpoint(self.cfx_handle, "sadfgh")
@@ -80,33 +79,28 @@ class MyCFXEndpoint(CFXEndpoint):
             request_result = RequestResult(StatusResult.Success, 0, "Success")
             getEndpointInformationResponse = GetEndpointInformationResponse(endpoint_information, request_result)
             resp_msg = CFXEnvelope(message_body=getEndpointInformationResponse)
-            print(resp_msg.to_json())
             return resp_msg.to_json()
         elif request["MessageName"] == "CFX.Production.GetActiveRecipeRequest":
             request_result = RequestResult(StatusResult.Success, 0, "Success")
             resp = GetActiveRecipeResponse(result=request_result, active_recipe_name="aaaa",
                                            active_recipe_revision="212")
             resp_msg = CFXEnvelope(message_body=resp)
-            print(resp_msg.to_json())
             return resp_msg.to_json()
         elif request["MessageName"] == "CFX.ResourcePerformance.HandleFaultRequest":
             request_result = RequestResult(StatusResult.Success, 0, "Success")
             resp = HandleFaultResponse(result=request_result)
             resp_msg = CFXEnvelope(message_body=resp)
-            print(resp_msg.to_json())
             return resp_msg.to_json()
         elif request["MessageName"] == "CFX.ResourcePerformance.GetActiveFaultsRequest":
             request_result = RequestResult(StatusResult.Success, 0, "Success")
             resp = GetActiveFaultsResponse(result=request_result)
             resp.add_fault(Fault(description="ERROR", fault_code="123"))
             resp_msg = CFXEnvelope(message_body=resp)
-            print(resp_msg.to_json())
             return resp_msg.to_json()
         elif request["MessageName"] == "CFX.ResourcePerformance.ModifyStationParametersRequest":
             request_result = RequestResult(StatusResult.Success, 0, "Success")
             resp = ModifyStationParametersResponse(result=request_result)
             resp_msg = CFXEnvelope(message_body=resp)
-            print(resp_msg.to_json())
             return resp_msg.to_json()
         else:
             return None
@@ -114,7 +108,7 @@ class MyCFXEndpoint(CFXEndpoint):
 
 async def main():
     endpoint = MyCFXEndpoint("192.168.137.217:12345", "ZKX_MAC")
-    container = CFXContainer(endpoint)
+    container = CFXContainer(endpoint,debug_info=False)
     container.set_heartbeat_frequency(60)
 
     container.add_publish_channel("192.168.137.1:8888", "event")
@@ -243,7 +237,7 @@ async def main():
     workStarted.add_unit(UnitPosition("a", 2, "A", 1.1, 2.1, 0.5, True, False))
     container.publish_msg(CFXEnvelope(message_body=workStarted))
 
-    AreYouThereRequest
+    # AreYouThereRequest
     response1 = await container.execute_request("192.168.137.1:8888", "PC",
                                                 request=CFXEnvelope(message_body=AreYouThereRequest(endpoint.cfx_handle))
                                                 )
@@ -252,21 +246,21 @@ async def main():
     else:
         print("Response1 time out")
 
-    WhoIsThereRequest
-    whoisthere = WhoIsThereRequest()
+    # WhoIsThereRequest
+    whoIsThereRequest = WhoIsThereRequest()
     supportTopic = SupportedTopic(topicName="AAA", topicSupportType=SupportedTopicQueryType.Ignore)
     supportTopic.add_support_message("cvb")
-    whoisthere.add_supported_topic(supportTopic)
+    whoIsThereRequest.add_supported_topic(supportTopic)
     response1 = await container.execute_request("192.168.137.1:8888", "PC",
                                                 request=CFXEnvelope(
-                                                    message_body=whoisthere
+                                                    message_body=whoIsThereRequest
                                                 ))
     if response1:
         print("Response1", response1)
     else:
         print("Response1 time out")
 
-    GetActiveRecipeRequest
+    # GetActiveRecipeRequest
     stage = Stage()
     request = GetActiveRecipeRequest(stage, lane=1)
     response1 = await container.execute_request("192.168.137.1:8888", "PC",
@@ -279,8 +273,7 @@ async def main():
         print("Response1 time out")
 
     # ValidateUnitsRequest
-    units = []
-    units.append(UnitPosition())
+    units = [UnitPosition()]
     validateUnitsRequest = ValidateUnitsRequest(primaryIdentifier="aaa", units=units)
     response1 = await container.execute_request("192.168.137.1:8888", "PC",
                                                 request=CFXEnvelope(
@@ -290,7 +283,6 @@ async def main():
         print("Response1", response1)
     else:
         print("Response1 time out")
-
 
     # container.close_endpoint()
 
