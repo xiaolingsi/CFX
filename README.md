@@ -108,10 +108,6 @@ if __name__ == '__main__':
 2. 添加适当的测试用例
 3. 更新相关文档
 
-### 许可证
-
-本项目采用MIT许可证，详见LICENSE文件。
-
 ---
 
 ## English Version
@@ -216,6 +212,3 @@ Issues and Pull Requests are welcome to help improve this project. Before submit
 2. Add appropriate test cases
 3. Update relevant documentation
 
-### License
-
-This project is licensed under the MIT License. See the LICENSE file for details.
