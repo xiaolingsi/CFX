@@ -11,12 +11,12 @@ from proton.reactor import Container
 
 from Amqp.CFXEndpoint import CFXEndpoint
 from CFX.CFXEnvelope import CFXEnvelope
-from CFX.CFXUtils import CFXUtils
 from CFX.Messages.CoreCommunication.HeartBeat import HeartBeat
+from utils import logutils
 
 
 class CFXContainer(object):
-    def __init__(self, cfx_endpoint: CFXEndpoint,debug_info = False):
+    def __init__(self, cfx_endpoint: CFXEndpoint, debug_info=False):
         self.cfx_endpoint: CFXEndpoint = cfx_endpoint
         self.cfx_handle = self.cfx_endpoint.cfx_handle
         self.container = Container(self.cfx_endpoint)
@@ -28,7 +28,7 @@ class CFXContainer(object):
         self.heartbeat_frequency = 60
         self.heartbeat_task = None
         self.debug_info = debug_info
-        self.log_utils = CFXUtils()
+        self.log_utils = logutils
 
     def set_heartbeat_frequency(self, frequency):
         self.heartbeat_frequency = frequency
@@ -38,25 +38,30 @@ class CFXContainer(object):
             self.heartbeat_frequency = 60
         if self.heartbeat_frequency == 0:
             return
+        last_send_time = 0
         while True:
-            for each_sender in self.sender_list:
-                heartBeat_msg = CFXEnvelope(source=self.cfx_handle,
-                                            message_body=HeartBeat(self.cfx_handle, self.heartbeat_frequency)).to_json()
-                gzip_msg = gzip.compress(json.dumps(heartBeat_msg).encode("utf-8"))
-                heartBeat = Message(content_encoding="gzip",
-                                    content_type='application/json;charset="utf-8"',
-                                    inferred=True,
-                                    reply_to=self.cfx_handle, durable=True,
-                                    priority=4, id=str(uuid.uuid4()),
-                                    properties={'cfx-topic': 'CFX',
-                                                'cfx-message': 'CFX.Heartbeat',
-                                                'cfx-handle': self.cfx_handle,
-                                                'cfx-target': None},
-                                    body=gzip_msg)
-                each_sender.send(heartBeat)
-                if self.debug_info:
-                    self.log_utils.info_log("Publish heartbeat")
-            time.sleep(self.heartbeat_frequency)
+            if time.time() - last_send_time > self.heartbeat_frequency:
+                last_send_time = time.time()
+                for each_sender in self.sender_list:
+                    heartBeat_msg = CFXEnvelope(source=self.cfx_handle,
+                                                message_body=HeartBeat(self.cfx_handle, self.heartbeat_frequency)).to_json()
+                    gzip_msg = gzip.compress(json.dumps(heartBeat_msg).encode("utf-8"))
+                    heartBeat = Message(content_encoding="gzip",
+                                        content_type='application/json;charset="utf-8"',
+                                        inferred=True,
+                                        reply_to=self.cfx_handle, durable=True,
+                                        priority=4, id=str(uuid.uuid4()),
+                                        properties={'cfx-topic': 'CFX',
+                                                    'cfx-message': 'CFX.Heartbeat',
+                                                    'cfx-handle': self.cfx_handle,
+                                                    'cfx-target': None},
+                                        body=gzip_msg)
+                    each_sender.send(heartBeat)
+                    if self.debug_info:
+                        self.log_utils.info_log("Publish heartbeat")
+            if not self.container_thread_handler:
+                return
+            time.sleep(.5)
 
     def open_endpoint(self):
         self.container_thread_handler = threading.Thread(target=self.container.run)
@@ -103,7 +108,6 @@ class CFXContainer(object):
         request_id = "REQUEST-" + str(uuid.uuid4())
         request.Source = self.cfx_handle
         request.Target = target_handle
-        request.to_json()
         this = gzip.compress(json.dumps(request.to_json()).encode("utf-8"))
         msg = Message(content_encoding="gzip",
                       content_type='application/json;charset="utf-8"',
@@ -123,6 +127,7 @@ class CFXContainer(object):
             return response
         except asyncio.TimeoutError:
             self.log_utils.error_log("request time out: " + request.MessageName)
+            return None
 
     async def wait_for_response(self, request_id):
         while request_id not in self.cfx_endpoint.rr_match:

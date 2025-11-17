@@ -17,3 +17,4 @@ class EndpointConnected(CFXMessage):
             "RequestNetWorkUri": self.RequestNetWorkUri,
             "RequestTargetAddress": self.RequestTargetAddress
         }
+

@@ -10,6 +10,7 @@ from proton.handlers import MessagingHandler
 from Amqp.CFXMessageImplements import CFXMessageImplements
 from CFX.CFXUtils import CFXUtils
 from CFX.CFXEnvelope import CFXEnvelope
+from utils import logutils
 
 
 class CFXEndpoint(MessagingHandler, CFXMessageImplements, ABC):
@@ -20,7 +21,7 @@ class CFXEndpoint(MessagingHandler, CFXMessageImplements, ABC):
         self.senders = {}
         self.acceptor = None
         self.rr_match = {}
-        self.log_utils = CFXUtils()
+        self.log_utils = logutils
 
     def on_start(self, event):
         self.acceptor = event.container.listen(self.local_url)  # 接收publish消息
@@ -47,7 +48,10 @@ class CFXEndpoint(MessagingHandler, CFXMessageImplements, ABC):
                         decompressed_data = f.read()
                 else:
                     decompressed_data = event.message.body.tobytes()
-                self.on_message_receive_from_listener(decompressed_data.decode("utf-8"))
+                try:
+                    self.on_message_receive_from_listener(json.loads(decompressed_data.decode("utf-8")))
+                except Exception as e:
+                    self.log_utils.error_log(e)
             else:
                 self.rr_match[event.message.correlation_id] = event.message
         else:
@@ -56,7 +60,11 @@ class CFXEndpoint(MessagingHandler, CFXMessageImplements, ABC):
                     decompressed_data = f.read()
             else:
                 decompressed_data = event.message.body.tobytes()
-            resp = self.on_request_receive(json.loads(decompressed_data.decode("utf-8")))
+            try:
+                resp = self.on_request_receive(json.loads(decompressed_data.decode("utf-8")))
+            except Exception as e:
+                self.log_utils.error_log(e)
+                resp = None
             if isinstance(resp, CFXEnvelope):
                 resp = resp.to_json()
             source = json.loads(decompressed_data)["Source"]

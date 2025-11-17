@@ -1,13 +1,24 @@
-import enum
+from enum import Enum
 
-
-class RecipeModificationReason(enum.Enum):
-    Unspecified = 0
-    NewRecipe = 1
-    NewRevision = 2
-    UpdatedGeometry = 3
-    UpdatedBOM = 4
-    PositionalCorrection = 5
-    RotationalCorrection = 6
-    VisionSystemCorrection = 7
-    RecipeDeleted = 8
+class RecipeModificationReason(Enum):
+    """Reasons why a recipe was modified at an endpoint"""
+    
+    # Unspecified reason
+    Unspecified = "Unspecified"
+    # Newly created recipe
+    NewRecipe = "NewRecipe"
+    # New revision of an existing recipe
+    NewRevision = "NewRevision"
+    # Geometric information was updated
+    UpdatedGeometry = "UpdatedGeometry"
+    # Bill of Materials information was updated
+    UpdatedBOM = "UpdatedBOM"
+    # Correction to positional information
+    PositionalCorrection = "PositionalCorrection"
+    # Correction to rotational information
+    RotationalCorrection = "RotationalCorrection"
+    # Correction to information needed by vision system.
+    VisionSystemCorrection = "VisionSystemCorrection"
+    # ** NOTE: ADDED in CFX 1.2 **
+    # The recipe has been deleted
+    RecipeDeleted = "RecipeDeleted"

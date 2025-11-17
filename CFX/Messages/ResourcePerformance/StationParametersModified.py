@@ -1,9 +1,15 @@
+from dataclasses import dataclass, field
+from dataclasses_json import dataclass_json
+from typing import List
+
 from CFX.CFXMessage import CFXMessage
 from CFX.Messages.Structures.GenericParameter import GenericParameter
 
 
+@dataclass_json
+@dataclass
 class StationParametersModified(CFXMessage):
-    ModifiedParameters: list
+    ModifiedParameters: List[GenericParameter] = field(default_factory=list)
 
     def to_cfx_json(self):
         ModifiedParameters = list()
@@ -18,11 +24,11 @@ class StationParametersModified(CFXMessage):
         }
         return StationParametersModified_json
 
-    def __init__(self):
+    def __init__(self, modified_parameters=None):
         super().__init__()
         self.type = "CFX.ResourcePerformance.StationParametersModified,CFX"
         self.message_name = "CFX.ResourcePerformance.StationParametersModified"
-        self.ModifiedParameters = list()
+        self.ModifiedParameters = modified_parameters if modified_parameters is not None else []
 
     def add_modified_parameter(self, parameter: GenericParameter):
         self.ModifiedParameters.append(parameter)

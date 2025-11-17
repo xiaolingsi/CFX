@@ -1,25 +1,30 @@
 from dataclasses import dataclass
-
 from dataclasses_json import dataclass_json
-
 from CFX.Messages.Structures.ValidationStatus import ValidationStatus
 
 
 @dataclass_json
 @dataclass
-class ValidationResult(object):
-    FailureCode: int
-    Message: str
+class ValidationResult:
+    """
+    Indicates result of a validation that was performed on a given production unit 
+    (typically by a line or factory level control system)
+    """
+    UniqueIdentifier: str
     PositionNumber: int
     Result: ValidationStatus
-    UniqueIdentifier: str
+    FailureCode: int
+    Message: str
 
-
-    def __init__(self,failureCode = 0,message = "",positionNumber = 0,result = ValidationStatus.Passed,uniqueIdentifier = ""):
-        self.FailureCode = failureCode
+    def __init__(self, unique_identifier: str = "", position_number: int = 0, 
+                 result: ValidationStatus = None, failure_code: int = 0, message: str = ""):
+        """
+        Default constructor
+        """
+        self.UniqueIdentifier = unique_identifier
+        self.PositionNumber = position_number
+        self.Result = result or ValidationStatus.Passed
+        self.FailureCode = failure_code
         self.Message = message
-        self.PositionNumber = positionNumber
-        self.Result = result
-        self.UniqueIdentifier = uniqueIdentifier
 
 

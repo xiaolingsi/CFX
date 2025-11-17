@@ -1,14 +1,21 @@
+import json
+
 from CFX.Messages.Structures.Paramter import Parameter
 from dataclasses import dataclass
 from dataclasses_json import dataclass_json
 
 
-@dataclass_json
-@dataclass
 class GenericParameter(Parameter):
-    Name:str
-    Value:str
+    Name: str
+    Value: str
 
-    def __init__(self,name,value):
+    def to_json(self):
+        return {
+            "$type": "CFX.Structures.GenericParameter, CFX",
+            "Name": self.Name,
+            "Value": self.Value
+        }
+
+    def __init__(self, name, value):
         self.Name = name
         self.Value = value

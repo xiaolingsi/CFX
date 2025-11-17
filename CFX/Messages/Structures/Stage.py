@@ -10,8 +10,7 @@ class Stage(object):
     StageName: str
     StageType: StageType
 
-    def __init__(self,stageSequence=0,stageName="",stageType = StageType.Work):
+    def __init__(self, stageSequence=0, stageName="", stageType=StageType.Work):
         self.StageSequence = stageSequence
         self.StageName = stageName
-        self.StageType = stageType
-
+        self.StageType = stageType.Work

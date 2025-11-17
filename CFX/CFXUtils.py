@@ -2,6 +2,7 @@ import datetime
 import logging
 import os.path
 from logging.handlers import TimedRotatingFileHandler
+import pytz
 
 GREEN = '\033[92m'
 ORANGE = '\033[93m'
@@ -42,7 +43,10 @@ class CFXUtils(metaclass=Singleton):
 
     @staticmethod
     def get_iso8601_time():
-        return datetime.datetime.now().isoformat() + "+08:00"
+        tz = pytz.timezone('Asia/Shanghai')
+        now_with_tz = datetime.datetime.now(tz)
+        iso_string = now_with_tz.isoformat()
+        return iso_string
 
     def __init__(self, logging_level=logging.INFO):
         self.log = logging.getLogger("CFXUtils")

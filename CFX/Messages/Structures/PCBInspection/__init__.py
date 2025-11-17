@@ -1,0 +1,1 @@
+# PCB Inspection structures package

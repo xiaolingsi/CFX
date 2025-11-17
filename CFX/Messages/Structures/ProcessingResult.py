@@ -1,9 +1,16 @@
-import enum
+from enum import Enum
 
-
-class ProcessingResult(enum.Enum):
-    Succeeded = 0
-    Failed = 1
-    Error = 2
-    Aborted = 3
-    Skipped = 4
+class ProcessingResult(Enum):
+    """The overall result of processing performed on a production unit in the course of production."""
+    
+    # The processing succeeded
+    Succeeded = "Succeeded"
+    # The processing failed
+    Failed = "Failed"
+    # The processing could not be completed because an error occurred.
+    Error = "Error"
+    # The processing was aborted by the operator / user.
+    Aborted = "Aborted"
+    # ** NOTE: ADDED in CFX 1.4 **
+    # The test was skipped because of (virtual) bad mark
+    Skipped = "Skipped"

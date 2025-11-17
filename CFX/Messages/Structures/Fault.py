@@ -27,7 +27,7 @@ class Fault(object):
     Stage: Stage
     TransactionID: uuid.uuid4
 
-    def __init__(self, description, fault_code, fault_occurrence_id=uuid.uuid4(), occurred_at=CFXUtils.get_iso8601_time(),
+    def __init__(self, description="", fault_code="", fault_occurrence_id=uuid.uuid4(), occurred_at=CFXUtils.get_iso8601_time(),
                  severity=FaultSeverity.Information, transaction_id=uuid.uuid4()):
         self.AccessType = AccessType.Unknown
         self.Cause = FaultCause.LoadError
